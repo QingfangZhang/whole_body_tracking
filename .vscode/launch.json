@@ -1,0 +1,76 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+    
+    
+        
+        
+
+    
+
+        {
+            "name": "Python Debugger: debug csv_to_npz",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/scripts/csv_to_npz.py",
+            "console": "integratedTerminal",
+            "args": [
+                "--input_file", "~/gpufree-data/zqf/LAFAN1_Retargeting_Dataset/g1/dance1_subject1.csv",
+                "--input_fps", "30",
+                "--output_name", "dance1_subject1",
+                "--headless"
+            ]
+        },
+
+        {
+            "name": "Python Debugger: debug replay_npz",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/scripts/replay_npz.py",
+            "console": "integratedTerminal",
+            "args": [
+                "--registry_name", "zqf_lab-org/wandb-registry-Motions/dance1_subject1",
+                "--headless"
+            ]
+        },
+
+        {
+            "name": "Python Debugger: debug train",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/scripts/rsl_rl/train.py",
+            "console": "integratedTerminal",
+            "args": [
+                "--task", "Tracking-Flat-G1-v0",
+                "--registry_name", "zqf_lab-org/wandb-registry-Motions/dance1_subject1",
+                "--logger", "wandb",
+                "--log_project_name", "BeyondMimic",
+                "--run_name", "test",
+                "--headless"
+            ],
+            "justMyCode": false
+        },
+
+                {
+            "name": "Python Debugger: debug play",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/scripts/rsl_rl/play.py",
+            "console": "integratedTerminal",
+            "args": [
+                "--task", "Tracking-Flat-G1-v0",
+                "--wandb_path", "zhangqingfang08/BeyondMimic/606dikrn",
+                "--num_envs", "2",
+                "--headless"
+            ],
+            "justMyCode": false
+        }
+    ]
+}
+
+// python scripts/csv_to_npz.py --input_file ~/gpufree-data/zqf/LAFAN1_Retargeting_Dataset/g1/dance1_subject1.csv --input_fps 30 --output_name dance1_subject1
+// python scripts/rsl_rl/train.py --task=Tracking-Flat-G1-v0 --registry_name zqf_lab-org/wandb-registry-Motions/dance1_subject1 --logger wandb --log_project_name BeyondMimic --run_name test_train
+// python scripts/rsl_rl/play.py --task=Tracking-Flat-G1-v0 --num_envs=2 --wandb_path=zhangqingfang08/BeyondMimic/606dikrn

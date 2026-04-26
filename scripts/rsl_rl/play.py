@@ -90,16 +90,18 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
             file = max(files, key=lambda x: int(x.split("_")[1].split(".")[0]))
 
         wandb_file = wandb_run.file(str(file))
-        wandb_file.download("./logs/rsl_rl/temp", replace=True)
-
-        print(f"[INFO]: Loading model checkpoint from: {run_path}/{file}")
         resume_path = f"./logs/rsl_rl/temp/{file}"
+        if not os.path.exists(resume_path):
+            wandb_file.download("./logs/rsl_rl/temp", replace=True)
+
+            print(f"[INFO]: Loading model checkpoint from: {run_path}/{file}")
+        
 
         if args_cli.motion_file is not None:
             print(f"[INFO]: Using motion file from CLI: {args_cli.motion_file}")
             env_cfg.commands.motion.motion_file = args_cli.motion_file
 
-        art = next((a for a in wandb_run.used_artifacts() if a.type == "motions"), None)
+        art = next((a for a in wandb_run.used_artifacts() if a.type == "Motions"), None)
         if art is None:
             print("[WARN] No model artifact found in the run.")
         else:
